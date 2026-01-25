@@ -23,8 +23,9 @@ Este documento describe cómo desplegar RavixPteroX (backend + frontend) y cómo
 ### 2) Descargar el proyecto
 
 ```bash
-git clone <tu-repo> ravixpterox
-cd ravixpterox
+cd /var/www/
+git clone https://github.com/MushhX/RavixPteroX.git
+cd RavixPteroX
 npm install
 ```
 
