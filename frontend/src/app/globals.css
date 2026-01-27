@@ -3,10 +3,110 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  --bg: #0b1020;
+  --fg: #e6e8ee;
+  --muted: rgba(255, 255, 255, 0.06);
+  --card: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #60a5fa;
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  --bg: #f8fafc;
+  --fg: #0b1220;
+  --muted: rgba(2, 6, 23, 0.06);
+  --card: rgba(255, 255, 255, 0.75);
+  --border: rgba(2, 6, 23, 0.12);
+  --accent: #0ea5e9;
+}
+
+html[data-theme="dark"] {
+  --bg: #090d18;
+  --fg: #e6e8ee;
+  --muted: rgba(255, 255, 255, 0.06);
+  --card: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #a78bfa;
+}
+
+html[data-theme="blue"] {
+  --bg: #04111f;
+  --fg: #e6f0ff;
+  --muted: rgba(230, 240, 255, 0.08);
+  --card: rgba(230, 240, 255, 0.07);
+  --border: rgba(230, 240, 255, 0.14);
+  --accent: #38bdf8;
 }
 
 html,
 body {
   height: 100%;
+}
+
+body {
+  background: var(--bg);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+html[data-bg="snow"] body::before {
+  background:
+    radial-gradient(1200px 600px at 30% 10%, rgba(14, 165, 233, 0.14), transparent 60%),
+    radial-gradient(900px 500px at 80% 30%, rgba(168, 85, 247, 0.10), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.0));
+}
+
+html[data-bg="midnight"] body::before {
+  background:
+    radial-gradient(900px 500px at 20% 20%, rgba(59, 130, 246, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 80% 10%, rgba(168, 85, 247, 0.14), transparent 55%),
+    radial-gradient(900px 600px at 40% 90%, rgba(16, 185, 129, 0.12), transparent 60%);
+  filter: saturate(1.1);
+}
+
+html[data-bg="ocean"] body::before {
+  background:
+    radial-gradient(900px 500px at 20% 20%, rgba(56, 189, 248, 0.22), transparent 60%),
+    radial-gradient(900px 600px at 70% 50%, rgba(34, 211, 238, 0.16), transparent 60%),
+    radial-gradient(900px 700px at 50% 90%, rgba(99, 102, 241, 0.14), transparent 60%);
+}
+
+html[data-bg="graphite"] body::before {
+  background:
+    radial-gradient(900px 500px at 20% 20%, rgba(148, 163, 184, 0.12), transparent 60%),
+    radial-gradient(900px 600px at 70% 50%, rgba(100, 116, 139, 0.12), transparent 60%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.32), rgba(2, 6, 23, 0));
+}
+
+.bg-preview-snow {
+  background:
+    radial-gradient(18px 18px at 30% 50%, rgba(14, 165, 233, 0.35), transparent 60%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.9));
+}
+
+.bg-preview-midnight {
+  background:
+    radial-gradient(18px 18px at 30% 50%, rgba(59, 130, 246, 0.40), transparent 60%),
+    linear-gradient(90deg, rgba(9, 13, 24, 0.95), rgba(15, 23, 42, 0.95));
+}
+
+.bg-preview-ocean {
+  background:
+    radial-gradient(18px 18px at 30% 50%, rgba(56, 189, 248, 0.45), transparent 60%),
+    linear-gradient(90deg, rgba(4, 17, 31, 0.95), rgba(3, 105, 161, 0.22));
+}
+
+.bg-preview-graphite {
+  background:
+    radial-gradient(18px 18px at 30% 50%, rgba(148, 163, 184, 0.35), transparent 60%),
+    linear-gradient(90deg, rgba(2, 6, 23, 0.95), rgba(30, 41, 59, 0.65));
 }

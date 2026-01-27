@@ -12,14 +12,40 @@ const demoServers = {
       object: "server",
       attributes: {
         identifier: "demo-1",
-        name: "Demo Server 1"
+        name: "Survival SMP",
+        description: "Minecraft 1.20 · Survival",
+        node: "eu-1",
+        status: { state: "running", uptimeSec: 86_400 },
+        limits: { cpu: 200, memoryMiB: 4096, diskMiB: 20_480 },
+        usage: {
+          cpuPercent: 42,
+          memoryMiB: 2310,
+          diskMiB: 12_800,
+          networkRxMiB: 12_340,
+          networkTxMiB: 8_120
+        },
+        sftp: { ip: "192.0.2.10", port: 2022 },
+        createdAt: Date.now() - 1000 * 60 * 60 * 24 * 120
       }
     },
     {
       object: "server",
       attributes: {
         identifier: "demo-2",
-        name: "Demo Server 2"
+        name: "Node API",
+        description: "Production API · Node 20",
+        node: "eu-2",
+        status: { state: "stopped", uptimeSec: 0 },
+        limits: { cpu: 100, memoryMiB: 2048, diskMiB: 10_240 },
+        usage: {
+          cpuPercent: 0,
+          memoryMiB: 0,
+          diskMiB: 4_900,
+          networkRxMiB: 3_210,
+          networkTxMiB: 2_980
+        },
+        sftp: { ip: "192.0.2.11", port: 2022 },
+        createdAt: Date.now() - 1000 * 60 * 60 * 24 * 30
       }
     }
   ]

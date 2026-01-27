@@ -8,6 +8,12 @@ export type MeResponse = {
   user: { id: string; email: string; role: string; perms: string[] };
 };
 
+export type HealthResponse = {
+  ok: boolean;
+  mode?: string;
+  now?: number;
+};
+
 let accessToken: string | null = null;
 let csrfToken: string | null = null;
 
@@ -42,6 +48,10 @@ async function request(path: string, init?: RequestInit) {
 
   const text = await res.text();
   return text ? JSON.parse(text) : null;
+}
+
+export async function health(): Promise<HealthResponse> {
+  return request("/api/v1/health", { method: "GET" }) as Promise<HealthResponse>;
 }
 
 export async function login(email: string, password: string) {

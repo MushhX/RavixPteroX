@@ -55,7 +55,7 @@ app.use(
   })
 );
 
-registerHealthRoutes(app);
+registerHealthRoutes(app, { config });
 registerAuthRoutes(app, { config, db });
 registerAdminRoutes(app, { config, db });
 registerPteroRoutes(app, { config, db });
