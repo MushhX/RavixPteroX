@@ -13,8 +13,8 @@ import {
   X
 } from "lucide-react";
 
-type Theme = "light" | "dark" | "blue";
-type Background = "snow" | "midnight" | "ocean" | "graphite";
+type Theme = "light" | "dark" | "blue" | "sunset" | "neon" | "forest" | "purple-haze";
+type Background = "snow" | "midnight" | "ocean" | "graphite" | "sunset" | "neon" | "forest" | "purple-haze";
 
 type AppearanceState = {
   theme: Theme;
@@ -29,12 +29,14 @@ const STORAGE_THEME = "ravix_theme";
 const STORAGE_BG = "ravix_bg";
 
 function clampTheme(v: string | null): Theme {
-  if (v === "dark" || v === "blue" || v === "light") return v;
+  const validThemes: Theme[] = ["light", "dark", "blue", "sunset", "neon", "forest", "purple-haze"];
+  if (v && validThemes.includes(v as Theme)) return v as Theme;
   return "dark";
 }
 
 function clampBg(v: string | null): Background {
-  if (v === "snow" || v === "midnight" || v === "ocean" || v === "graphite") return v;
+  const validBgs: Background[] = ["snow", "midnight", "ocean", "graphite", "sunset", "neon", "forest", "purple-haze"];
+  if (v && validBgs.includes(v as Background)) return v as Background;
   return "midnight";
 }
 
@@ -62,7 +64,7 @@ export function Providers({ children }: { children: ReactNode }) {
     let initialBg: Background = "midnight";
     try {
       initialBg = clampBg(localStorage.getItem(STORAGE_BG));
-    } catch {}
+    } catch { }
 
     setThemeState(initialTheme);
     setBackgroundState(initialBg);
@@ -73,7 +75,7 @@ export function Providers({ children }: { children: ReactNode }) {
     setThemeState(t);
     try {
       localStorage.setItem(STORAGE_THEME, t);
-    } catch {}
+    } catch { }
     applyAppearance(t, background);
   }
 
@@ -81,7 +83,7 @@ export function Providers({ children }: { children: ReactNode }) {
     setBackgroundState(b);
     try {
       localStorage.setItem(STORAGE_BG, b);
-    } catch {}
+    } catch { }
     applyAppearance(theme, b);
   }
 
@@ -99,6 +101,10 @@ export function useAppearance() {
 function IconForTheme({ theme }: { theme: Theme }) {
   if (theme === "light") return <Sun className="h-4 w-4" />;
   if (theme === "blue") return <Waves className="h-4 w-4" />;
+  if (theme === "sunset") return <Sparkles className="h-4 w-4" />;
+  if (theme === "neon") return <Sparkles className="h-4 w-4" />;
+  if (theme === "forest") return <Sparkles className="h-4 w-4" />;
+  if (theme === "purple-haze") return <Sparkles className="h-4 w-4" />;
   return <Moon className="h-4 w-4" />;
 }
 
@@ -110,6 +116,14 @@ function bgLabel(bg: Background) {
       return "Ocean";
     case "graphite":
       return "Graphite";
+    case "sunset":
+      return "Sunset";
+    case "neon":
+      return "Neon";
+    case "forest":
+      return "Forest";
+    case "purple-haze":
+      return "Purple Haze";
     default:
       return "Midnight";
   }
@@ -122,14 +136,22 @@ export function AppearanceControl() {
   const themes: { id: Theme; label: string }[] = [
     { id: "light", label: "Light" },
     { id: "dark", label: "Dark" },
-    { id: "blue", label: "Blue" }
+    { id: "blue", label: "Blue" },
+    { id: "sunset", label: "Sunset" },
+    { id: "neon", label: "Neon" },
+    { id: "forest", label: "Forest" },
+    { id: "purple-haze", label: "Purple" }
   ];
 
   const bgs: { id: Background; label: string }[] = [
     { id: "snow", label: "Snow" },
     { id: "midnight", label: "Midnight" },
     { id: "ocean", label: "Ocean" },
-    { id: "graphite", label: "Graphite" }
+    { id: "graphite", label: "Graphite" },
+    { id: "sunset", label: "Sunset" },
+    { id: "neon", label: "Neon" },
+    { id: "forest", label: "Forest" },
+    { id: "purple-haze", label: "Purple" }
   ];
 
   return (
@@ -176,21 +198,20 @@ export function AppearanceControl() {
               <div className="p-4 space-y-4">
                 <div>
                   <div className="text-xs font-semibold opacity-70">Tema</div>
-                  <div className="mt-2 grid grid-cols-3 gap-2">
+                  <div className="mt-2 grid grid-cols-4 gap-2">
                     {themes.map((t) => (
                       <button
                         key={t.id}
                         type="button"
                         onClick={() => setTheme(t.id)}
-                        className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-2 text-sm transition hover:-translate-y-0.5 ${
-                          theme === t.id
+                        className={`flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2 text-xs transition hover:-translate-y-0.5 ${theme === t.id
                             ? "border-[color:var(--accent)] bg-[color:var(--muted)]"
                             : "border-[color:var(--border)] bg-transparent"
-                        }`}
+                          }`}
                       >
                         <IconForTheme theme={t.id} />
-                        <span>{t.label}</span>
-                        {theme === t.id ? <Check className="h-4 w-4 ml-auto" /> : null}
+                        <span className="truncate w-full text-center">{t.label}</span>
+                        {theme === t.id ? <Check className="h-3 w-3" /> : null}
                       </button>
                     ))}
                   </div>
@@ -204,11 +225,10 @@ export function AppearanceControl() {
                         key={b.id}
                         type="button"
                         onClick={() => setBackground(b.id)}
-                        className={`rounded-xl border px-3 py-2 text-left text-sm transition hover:-translate-y-0.5 ${
-                          background === b.id
-                            ? "border-[color:var(--accent)] bg-[color:var(--muted)]"
-                            : "border-[color:var(--border)] bg-transparent"
-                        }`}
+                        className={`rounded-xl border px-3 py-2 text-left text-sm transition hover:-translate-y-0.5 ${background === b.id
+                          ? "border-[color:var(--accent)] bg-[color:var(--muted)]"
+                          : "border-[color:var(--border)] bg-transparent"
+                          }`}
                       >
                         <div className="flex items-center justify-between">
                           <span>{b.label}</span>

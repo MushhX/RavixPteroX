@@ -159,7 +159,8 @@ export default function DashboardPage() {
     <main className="py-10">
       <Container>
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }}>
-          <div className="flex items-start justify-between gap-6">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-6 mb-8">
             <div className="min-w-0">
               <div className="flex items-center gap-3">
                 <div className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--muted)] p-2">
@@ -210,6 +211,142 @@ export default function DashboardPage() {
           {loading ? <div className="mt-6 opacity-70">Cargando...</div> : null}
           {error ? <div className="mt-6 text-sm text-rose-300">{error}</div> : null}
 
+          {/* Quick Access Navigation */}
+          <div className="mb-8">
+            <h2 className="text-lg font-semibold mb-4">Acceso Rápido</h2>
+            <div className="grid gap-3 md:grid-cols-4 lg:grid-cols-4">
+              <Link href="/dashboard/analytics">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-4 cursor-pointer hover:border-[color:var(--accent)] transition"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="rounded-xl bg-[color:var(--muted)] p-2">
+                      <Activity className="h-5 w-5 text-[color:var(--accent)]" />
+                    </div>
+                    <div className="font-semibold">Analytics</div>
+                  </div>
+                  <div className="text-xs opacity-70">Gráficos de rendimiento</div>
+                </motion.div>
+              </Link>
+
+              <Link href="/dashboard/files">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-4 cursor-pointer hover:border-[color:var(--accent)] transition"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="rounded-xl bg-[color:var(--muted)] p-2">
+                      <HardDrive className="h-5 w-5 text-emerald-400" />
+                    </div>
+                    <div className="font-semibold">Archivos</div>
+                  </div>
+                  <div className="text-xs opacity-70">Gestor de archivos</div>
+                </motion.div>
+              </Link>
+
+              <Link href="/dashboard/database">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-4 cursor-pointer hover:border-[color:var(--accent)] transition"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="rounded-xl bg-[color:var(--muted)] p-2">
+                      <Database className="h-5 w-5 text-sky-400" />
+                    </div>
+                    <div className="font-semibold">Databases</div>
+                  </div>
+                  <div className="text-xs opacity-70">Gestión MySQL</div>
+                </motion.div>
+              </Link>
+
+              <Link href="/dashboard/backups">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-4 cursor-pointer hover:border-[color:var(--accent)] transition"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="rounded-xl bg-[color:var(--muted)] p-2">
+                      <Database className="h-5 w-5 text-purple-400" />
+                    </div>
+                    <div className="font-semibold">Backups</div>
+                  </div>
+                  <div className="text-xs opacity-70">Respaldos automáticos</div>
+                </motion.div>
+              </Link>
+
+              <Link href="/dashboard/console">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-4 cursor-pointer hover:border-[color:var(--accent)] transition"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="rounded-xl bg-[color:var(--muted)] p-2">
+                      <Zap className="h-5 w-5 text-amber-400" />
+                    </div>
+                    <div className="font-semibold">Console</div>
+                  </div>
+                  <div className="text-xs opacity-70">Terminal en vivo</div>
+                </motion.div>
+              </Link>
+
+              <Link href="/dashboard/logs">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-4 cursor-pointer hover:border-[color:var(--accent)] transition"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="rounded-xl bg-[color:var(--muted)] p-2">
+                      <Activity className="h-5 w-5 text-rose-400" />
+                    </div>
+                    <div className="font-semibold">Logs</div>
+                  </div>
+                  <div className="text-xs opacity-70">Visor de logs</div>
+                </motion.div>
+              </Link>
+
+              <Link href="/dashboard/billing">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-4 cursor-pointer hover:border-[color:var(--accent)] transition"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="rounded-xl bg-[color:var(--muted)] p-2">
+                      <Database className="h-5 w-5 text-green-400" />
+                    </div>
+                    <div className="font-semibold">Billing</div>
+                  </div>
+                  <div className="text-xs opacity-70">Pagos y facturas</div>
+                </motion.div>
+              </Link>
+
+              {user?.role === "admin" && (
+                <Link href="/admin/customize">
+                  <motion.div
+                    whileHover={{ y: -4, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-4 cursor-pointer hover:border-[color:var(--accent)] transition"
+                  >
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="rounded-xl bg-[color:var(--muted)] p-2">
+                        <Shield className="h-5 w-5 text-indigo-400" />
+                      </div>
+                      <div className="font-semibold">Customize</div>
+                    </div>
+                    <div className="text-xs opacity-70">Personalización</div>
+                  </motion.div>
+                </Link>
+              )}
+            </div>
+          </div>
+
           <div className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
             <div className="space-y-6">
               <Card>
@@ -245,11 +382,10 @@ export default function DashboardPage() {
                             onClick={() => setSelected(id)}
                             whileHover={{ y: -2 }}
                             whileTap={{ scale: 0.99 }}
-                            className={`text-left rounded-2xl border px-4 py-3 transition ${
-                              isSelected
+                            className={`text-left rounded-2xl border px-4 py-3 transition ${isSelected
                                 ? "border-[color:var(--accent)] bg-[color:var(--muted)]"
                                 : "border-[color:var(--border)] bg-transparent hover:bg-[color:var(--muted)]"
-                            }`}
+                              }`}
                             type="button"
                           >
                             <div className="flex items-start justify-between gap-3">

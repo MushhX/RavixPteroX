@@ -43,7 +43,7 @@ export function Stat({ label, value, sub, icon }: { label: string; value: string
   );
 }
 
-export function Badge({ children, tone = "neutral" }: { children: ReactNode; tone?: "neutral" | "good" | "warn" | "bad" | "info" }) {
+export function Badge({ children, tone = "neutral" }: { children?: ReactNode; tone?: "neutral" | "good" | "warn" | "bad" | "info" }) {
   const toneClass =
     tone === "good"
       ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-100"
@@ -57,14 +57,16 @@ export function Badge({ children, tone = "neutral" }: { children: ReactNode; ton
 
   return (
     <span className={cx("inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold", toneClass)}>
-      {children}
+      {children || tone.toUpperCase()}
     </span>
   );
 }
 
-export function Button({ className, variant = "default", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "default" | "ghost" | "outline" }) {
+export function Button({ className, variant = "default", size = "default", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "default" | "ghost" | "outline"; size?: "default" | "sm" }) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold transition active:translate-y-[1px] disabled:opacity-60 disabled:pointer-events-none";
+    "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition active:translate-y-[1px] disabled:opacity-60 disabled:pointer-events-none";
+
+  const sizeClass = size === "sm" ? "px-2.5 py-1.5 text-xs" : "px-3 py-2 text-sm";
 
   const v =
     variant === "ghost"
@@ -73,7 +75,7 @@ export function Button({ className, variant = "default", ...props }: ButtonHTMLA
         ? "border border-[color:var(--border)] bg-transparent hover:bg-[color:var(--muted)]"
         : "bg-[color:var(--accent)] text-black hover:brightness-110";
 
-  return <button className={cx(base, v, className)} {...props} />;
+  return <button className={cx(base, sizeClass, v, className)} {...props} />;
 }
 
 export function Progress({ value, tone = "accent" }: { value: number; tone?: "accent" | "good" | "warn" | "bad" }) {

@@ -44,6 +44,49 @@ Puertos por defecto:
 - Arquitectura desacoplada (backend y frontend independientes)
 - Extensibilidad (plugins/addons + marketplace)
 
+## ✨ Características Principales
+
+### 🎨 8 Temas Premium
+- **Light (Snow)** - Diseño limpio y brillante
+- **Dark (Midnight)** - Modo oscuro profesional
+- **Blue (Ocean)** - Tonos azules frescos
+- **Graphite** - Monocromático elegante
+- **Sunset** - Gradientes cálidos naranja y rosa
+- **Neon** - Vibrante cian y magenta
+- **Forest** - Tonos verdes naturales
+- **Purple Haze** - Paleta púrpura elegante
+
+### 📊 Módulos del Dashboard
+- **Analytics** - Gráficos de rendimiento en tiempo real
+- **File Manager** - Navegador de archivos completo
+- **Database** - Gestión de bases de datos MySQL
+- **Backups** - Sistema de respaldos automático y manual
+- **Console** - Terminal en vivo
+- **Logs** - Visor de logs con filtros
+- **Billing** - Sistema completo de pagos y facturación
+
+### ⚙️ Panel de Administración
+- **Users** - Gestión de usuarios y roles
+- **Audit** - Registro de auditoría
+- **Plugins** - Marketplace de plugins
+- **Customize** - Personalización completa del dashboard
+- **Payments** - Administración de pagos y suscripciones
+
+### 💳 Sistema de Pagos
+- Integración con Stripe y PayPal
+- Gestión de suscripciones
+- Historial de facturas (descarga PDF)
+- Sistema de créditos
+- Análisis de ingresos
+
+### 🎯 Componentes UI Premium
+- Toast notifications animadas
+- Sistema de modales
+- Navegación por pestañas
+- Sidebar colapsable
+- Animaciones suaves (shimmer, glow, float)
+- Badges inteligentes
+
 ## Arquitectura (resumen)
 
 - **Frontend**: Next.js (UI moderna) consumiendo el backend vía HTTPS.

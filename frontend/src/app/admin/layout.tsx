@@ -88,6 +88,12 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 <Link href="/admin/plugins">
                   <Button variant="outline">Plugins</Button>
                 </Link>
+                <Link href="/admin/customize">
+                  <Button variant="outline">Personalización</Button>
+                </Link>
+                <Link href="/admin/payments">
+                  <Button variant="outline">Pagos</Button>
+                </Link>
               </nav>
             </CardBody>
           </Card>
