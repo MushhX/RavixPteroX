@@ -13,7 +13,7 @@ let csrfToken: string | null = null;
 
 function backendUrl() {
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
-  if (!url) throw new Error("NEXT_PUBLIC_BACKEND_URL missing");
+  if (!url) return "";
   return url.replace(/\/$/, "");
 }
 

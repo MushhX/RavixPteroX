@@ -1,10 +1,29 @@
 import { Express, Request, Response } from "express";
 import { z } from "zod";
-import { requireAuth, requirePerm } from "../middleware/auth.js";
+import { AuthedRequest, requireAuth, requirePerm } from "../middleware/auth.js";
 import { requireCsrf } from "../middleware/csrf.js";
 import { writeAudit } from "../services/audit.js";
 import { AppConfig } from "../services/config.js";
 import { Db } from "../services/db.js";
+
+const demoServers = {
+  data: [
+    {
+      object: "server",
+      attributes: {
+        identifier: "demo-1",
+        name: "Demo Server 1"
+      }
+    },
+    {
+      object: "server",
+      attributes: {
+        identifier: "demo-2",
+        name: "Demo Server 2"
+      }
+    }
+  ]
+};
 
 const PowerSchema = z.object({
   signal: z.enum(["start", "stop", "restart", "kill"])
@@ -39,7 +58,19 @@ export function registerPteroRoutes(app: Express, deps: { config: AppConfig; db:
     "/api/v1/ptero/client/servers",
     requireAuth(config),
     requirePerm("ptero:read"),
-    async (req: Request, res: Response) => {
+    async (req: AuthedRequest, res: Response) => {
+      if (config.mode === "demo") {
+        const actorUserId = req.auth?.userId;
+        writeAudit(db, {
+          actorUserId,
+          action: "ptero.client.servers.list",
+          ip: req.ip,
+          userAgent: req.header("user-agent") ?? undefined
+        });
+        res.json(demoServers);
+        return;
+      }
+
       if (!config.pteroClientApiKey) {
         res.status(500).json({ error: "ptero_client_api_key_missing" });
         return;
@@ -73,17 +104,31 @@ export function registerPteroRoutes(app: Express, deps: { config: AppConfig; db:
     requireAuth(config),
     requirePerm("ptero:power"),
     requireCsrf(config),
-    async (req: Request, res: Response) => {
-      if (!config.pteroClientApiKey) {
-        res.status(500).json({ error: "ptero_client_api_key_missing" });
-        return;
-      }
-
+    async (req: AuthedRequest, res: Response) => {
       const serverId = req.params.serverId;
       const input = PowerSchema.safeParse(req.body);
 
       if (!input.success) {
         res.status(400).json({ error: "invalid_body" });
+        return;
+      }
+
+      if (config.mode === "demo") {
+        const actorUserId = req.auth?.userId;
+        writeAudit(db, {
+          actorUserId,
+          action: "ptero.client.server.power",
+          target: serverId,
+          meta: input.data,
+          ip: req.ip,
+          userAgent: req.header("user-agent") ?? undefined
+        });
+        res.status(204).send();
+        return;
+      }
+
+      if (!config.pteroClientApiKey) {
+        res.status(500).json({ error: "ptero_client_api_key_missing" });
         return;
       }
 

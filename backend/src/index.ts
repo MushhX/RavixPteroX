@@ -1,5 +1,6 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
@@ -11,6 +12,8 @@ import { registerPteroRoutes } from "./routes/ptero.js";
 import { loadConfig } from "./services/config.js";
 import { initDb } from "./services/db.js";
 import { registerPlugins } from "./services/plugins.js";
+
+dotenv.config();
 
 const config = loadConfig(process.env);
 const db = initDb(config);
