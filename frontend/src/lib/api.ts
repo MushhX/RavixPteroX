@@ -18,9 +18,8 @@ let accessToken: string | null = null;
 let csrfToken: string | null = null;
 
 function backendUrl() {
-  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
-  if (!url) return "";
-  return url.replace(/\/$/, "");
+  // Use relative path through Next.js rewrites
+  return "";
 }
 
 async function request(path: string, init?: RequestInit) {
